@@ -1,0 +1,10 @@
+fastapi
+uvicorn[standard]
+sqlalchemy
+pyjwt
+bcrypt
+email-validator
+pydantic
+httpx
+pytest
+pytest-cov
