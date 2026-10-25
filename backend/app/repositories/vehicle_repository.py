@@ -33,3 +33,18 @@ class VehicleRepository:
     def delete(self, vehicle: Vehicle) -> None:
         self.db.delete(vehicle)
         self.db.commit()
+
+    def search(self, make=None, model=None, category=None, min_price=None, max_price=None) -> list[Vehicle]:
+        """Filter vehicles; text filters are case-insensitive partial matches."""
+        stmt = select(Vehicle)
+        if make:
+            stmt = stmt.where(Vehicle.make.ilike(f"%{make}%"))
+        if model:
+            stmt = stmt.where(Vehicle.model.ilike(f"%{model}%"))
+        if category:
+            stmt = stmt.where(Vehicle.category.ilike(f"%{category}%"))
+        if min_price is not None:
+            stmt = stmt.where(Vehicle.price >= min_price)
+        if max_price is not None:
+            stmt = stmt.where(Vehicle.price <= max_price)
+        return list(self.db.scalars(stmt.order_by(Vehicle.id)))

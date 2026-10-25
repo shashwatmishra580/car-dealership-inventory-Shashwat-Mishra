@@ -27,3 +27,9 @@ class VehicleService:
         if vehicle is None:
             raise VehicleNotFoundError()
         return vehicle
+
+    def search(self, **filters) -> list[Vehicle]:
+        low, high = filters.get("min_price"), filters.get("max_price")
+        if low is not None and high is not None and low > high:
+            raise InvalidPriceRangeError()
+        return self.vehicles.search(**filters)
