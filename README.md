@@ -5,7 +5,6 @@ and purchase them. Admins can also add, edit and delete vehicles and restock inv
 
 Built test-first: the git history shows the Red → Green → Refactor rhythm (see `git log`).
 
-**Live demo:** _add your deployed link here (optional)_
 
 ## Tech stack
 
@@ -101,12 +100,12 @@ cd frontend && npm test
 - **Commits:** Every AI-assisted commit has a `Co-authored-by: Claude <noreply@anthropic.com>` trailer. The refactor and screenshot commits were done without AI. Full raw chats are in `PROMPTS.md`.
 
 **What I changed or wrote myself:**
-- <<Change 1>>
-- <<Change 2>>
+- Claude has given me code but rather than copy pasting i firstly made the relevant changes so that my code can become more optimized.
+- I have used some test cases on my own
 
 **What I verified and understood:** I read through the JWT login flow, the admin-only dependency, and the atomic purchase (conditional UPDATE so stock can't go negative), and I can explain each.
 
-**Reflection:** <<4-6 sentences in your own words>>
+**Reflection:** Working on this project with Claude helped me approach a full-stack application that initially seemed challenging, one step at a time. I used AI to help me write code, create tests, and troubleshoot errors, while learning how the different components work together. Following the TDD approach helped me understand the importance of testing functionality before implementing it. This experience taught me that AI can be a valuable learning partner, but understanding the code and taking responsibility for the final implementation are equally important.
 
 ## Test report
 
