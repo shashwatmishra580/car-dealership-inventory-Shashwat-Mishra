@@ -48,3 +48,22 @@ class VehicleRepository:
         if max_price is not None:
             stmt = stmt.where(Vehicle.price <= max_price)
         return list(self.db.scalars(stmt.order_by(Vehicle.id)))
+
+    def decrement_stock(self, vehicle_id: int, amount: int) -> bool:
+        """Atomically remove stock. The WHERE clause makes it succeed only if enough units remain,
+        so two concurrent buyers can never take the same last car."""
+        result = self.db.execute(
+            update(Vehicle)
+            .where(Vehicle.id == vehicle_id, Vehicle.quantity >= amount)
+            .values(quantity=Vehicle.quantity - amount)
+        )
+        self.db.commit()
+        return result.rowcount == 1
+
+    def increment_stock(self, vehicle_id: int, amount: int) -> bool:
+        """Atomically add stock; returns False if the vehicle does not exist."""
+        result = self.db.execute(
+            update(Vehicle).where(Vehicle.id == vehicle_id).values(quantity=Vehicle.quantity + amount)
+        )
+        self.db.commit()
+        return result.rowcount == 1
